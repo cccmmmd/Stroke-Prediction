@@ -18,12 +18,11 @@ rf_pretrained = joblib.load("Stroke-RF.pkl")
 svm_pretrained = joblib.load("Stroke-SVM.pkl")
 clf_pretrained = joblib.load("Stroke-CLF.pkl")
 
-data = [[10434,"Female",69,0,0,"No","Private","Urban",94.39,22.8,"never smoked"]]
-df_test = pd.DataFrame(data, columns=["id","gender","age","hypertension","heart_disease","ever_married","work_type","Residence_type","avg_glucose_level",'bmi',"smoking_status"])
+data = [["Female",1.24,0,0,"No","children",'Urban',84.2,19.2,"never smoked"]]
+df_test = pd.DataFrame(data, columns=["gender","age","hypertension","heart_disease","ever_married","work_type","Residence_type","avg_glucose_level",'bmi',"smoking_status"])
 
 df = pd.read_csv('healthcare-dataset-stroke-data.csv')
 df.drop(["id","stroke"], axis=1, inplace=True)
-df_test.drop("id", axis=1, inplace=True)
 df_test["bmi"].fillna(df_test.groupby("gender")["bmi"].transform("mean"), inplace=True)
 df_test = pd.get_dummies(data=df_test, dtype=int, columns=["gender", "ever_married", "work_type", "Residence_type", "smoking_status" ])
 
@@ -48,5 +47,10 @@ predictions4 = rf_pretrained.predict(df_f)
 predictions5 = svm_pretrained.predict(df_f)
 predictions6 = clf_pretrained.predict(df_f)
 
-print(predictions1, predictions2, predictions3, predictions4, predictions5, predictions6)
+print("Logistic Regression: ", predictions1[0])
+print("Decision Tree Classifier: ", predictions2[0])
+print("Averaged Perceptron: ", predictions3[0])
+print("Random Forest Classification: ", predictions4[0])
+print("Support Vector Machine: ", predictions5[0])
+print("Neural Networks: ", predictions6[0])
 # %%
