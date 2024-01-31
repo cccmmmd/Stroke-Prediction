@@ -1,65 +1,65 @@
 #!/usr/bin/env python
 # coding: utf-8
 
-# In[443]:
+# In[46]:
 
 
 import pandas as pd
 import numpy as np
-#import matplotlib.pyplot as plt
-#import seaborn as sns
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 
-# In[444]:
+# In[81]:
 
 
 df = pd.read_csv('healthcare-dataset-stroke-data.csv')
 
 
-# In[445]:
+# In[82]:
 
 
 df.head()
 
 
-# In[446]:
+# In[83]:
 
 
 df.describe()
 
 
-# In[447]:
+# In[84]:
 
 
 df.drop("id", axis=1, inplace=True)
 df.info()
 
 
-# In[448]:
+# In[85]:
 
 
 df["ever_married"].value_counts()
 
 
-# In[449]:
+# In[86]:
 
 
 df["work_type"].value_counts()
 
 
-# In[450]:
+# In[87]:
 
 
 df["Residence_type"].value_counts()
 
 
-# In[451]:
+# In[88]:
 
 
 df["smoking_status"].value_counts()
 
 
-# In[452]:
+# In[89]:
 
 
 df.groupby("stroke").mean(numeric_only=True)
@@ -67,7 +67,7 @@ df.groupby("stroke").mean(numeric_only=True)
 
 # ## 處理缺失數據
 
-# In[453]:
+# In[90]:
 
 
 df.isnull().sum().sort_values(ascending=False)
@@ -75,7 +75,7 @@ df.isnull().sum().sort_values(ascending=False)
 
 # df.groupby("gender")["bmi"].transform("mean")
 
-# In[454]:
+# In[91]:
 
 
 df["bmi"].fillna(df.groupby("gender")["bmi"].transform("mean"), inplace=True)
@@ -84,29 +84,35 @@ df.isnull().sum()
 
 # ## 類別資料的處理
 
-# In[455]:
+# In[92]:
 
 
 df = pd.get_dummies(data=df, dtype=int, columns=["gender", "ever_married", "work_type", "Residence_type", "smoking_status" ])
 df
 
 
-# In[456]:
+# In[93]:
 
 
 df.info()
 
 
-# In[457]:
+# In[94]:
 
 
 df.drop(["ever_married_No","Residence_type_Rural"], axis=1, inplace=True)
+df
+
+
+# In[95]:
+
+
 df.corr()
 
 
 # ## 特徵縮放 normalization 
 
-# In[458]:
+# In[96]:
 
 
 from sklearn.preprocessing import MinMaxScaler
@@ -124,14 +130,14 @@ df
 #         df[col]=le.fit_transform(df[col]) 
 # df
 
-# In[459]:
+# In[17]:
 
 
 X = df.drop("stroke", axis=1)
 y = df['stroke']
 
 
-# In[460]:
+# In[18]:
 
 
 from sklearn.model_selection import train_test_split
@@ -140,7 +146,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_
 
 # # 1. Logistic Regression
 
-# In[461]:
+# In[19]:
 
 
 from sklearn.linear_model import LogisticRegression
@@ -148,14 +154,14 @@ lr = LogisticRegression(max_iter=700)
 lr.fit(X_train, y_train)
 
 
-# In[462]:
+# In[20]:
 
 
 predictions = lr.predict(X_test)
 predictions
 
 
-# In[463]:
+# In[21]:
 
 
 from sklearn.metrics import accuracy_score
@@ -163,7 +169,7 @@ accuracy_using_decision_tree = round(accuracy_score(y_test, predictions)*100, 2)
 print("Model accuracy using Decision Tree: ", accuracy_using_decision_tree, "%")
 
 
-# In[464]:
+# In[22]:
 
 
 from sklearn.metrics import confusion_matrix, accuracy_score, recall_score, precision_score
@@ -173,7 +179,7 @@ print("Recall:", recall_score(y_test, predictions))
 print("Precision:", precision_score(y_test, predictions))
 
 
-# In[465]:
+# In[23]:
 
 
 pd.DataFrame(confusion_matrix(y_test, predictions),
@@ -184,7 +190,7 @@ pd.DataFrame(confusion_matrix(y_test, predictions),
 
 # # 2. Decision Tree Classifier
 
-# In[466]:
+# In[24]:
 
 
 from sklearn.tree import DecisionTreeClassifier
@@ -192,20 +198,20 @@ dt = DecisionTreeClassifier()
 dt.fit(X_train, y_train)
 
 
-# In[467]:
+# In[25]:
 
 
 X_test
 
 
-# In[468]:
+# In[26]:
 
 
 predictions = dt.predict(X_test)
 predictions
 
 
-# In[469]:
+# In[27]:
 
 
 print("Accuracy:", round(accuracy_score(y_test, predictions)*100, 2),"%")
@@ -213,7 +219,7 @@ print("Recall:", recall_score(y_test, predictions))
 print("Precision:", precision_score(y_test, predictions))
 
 
-# In[470]:
+# In[28]:
 
 
 pd.DataFrame(confusion_matrix(y_test, predictions),
@@ -224,7 +230,7 @@ pd.DataFrame(confusion_matrix(y_test, predictions),
 
 # # 3. Averaged Perceptron
 
-# In[471]:
+# In[29]:
 
 
 from sklearn.linear_model import Perceptron 
@@ -232,14 +238,14 @@ pt = Perceptron(max_iter=100, eta0=0.1, random_state=42)
 pt.fit(X_train, y_train)
 
 
-# In[472]:
+# In[30]:
 
 
 predictions = pt.predict(X_test)
 predictions
 
 
-# In[473]:
+# In[31]:
 
 
 print("Accuracy:", round(accuracy_score(y_test, predictions)*100, 2),"%")
@@ -247,7 +253,7 @@ print("Recall:", recall_score(y_test, predictions))
 print("Precision:", precision_score(y_test, predictions))
 
 
-# In[474]:
+# In[32]:
 
 
 pd.DataFrame(confusion_matrix(y_test, predictions),
@@ -258,7 +264,7 @@ pd.DataFrame(confusion_matrix(y_test, predictions),
 
 # # 4. Random Forest Classification
 
-# In[475]:
+# In[33]:
 
 
 from sklearn.ensemble import RandomForestClassifier
@@ -266,14 +272,14 @@ rf = RandomForestClassifier(random_state=42)
 rf.fit(X_train, y_train)
 
 
-# In[476]:
+# In[34]:
 
 
 predictions = rf.predict(X_test)
 predictions
 
 
-# In[477]:
+# In[35]:
 
 
 print("Accuracy:", round(accuracy_score(y_test, predictions)*100, 2),"%")
@@ -281,7 +287,7 @@ print("Recall:", recall_score(y_test, predictions))
 print("Precision:", precision_score(y_test, predictions))
 
 
-# In[478]:
+# In[36]:
 
 
 pd.DataFrame(confusion_matrix(y_test, predictions),
@@ -292,7 +298,7 @@ pd.DataFrame(confusion_matrix(y_test, predictions),
 
 # # 5. Support Vector Machine
 
-# In[487]:
+# In[37]:
 
 
 from sklearn import svm
@@ -300,14 +306,14 @@ svm = svm.SVC(random_state=42)
 svm.fit(X_train, y_train)
 
 
-# In[488]:
+# In[38]:
 
 
 predictions = svm.predict(X_test)
 predictions
 
 
-# In[489]:
+# In[39]:
 
 
 print("Accuracy:", round(accuracy_score(y_test, predictions)*100, 2),"%")
@@ -315,7 +321,7 @@ print("Recall:", recall_score(y_test, predictions))
 print("Precision:", precision_score(y_test, predictions))
 
 
-# In[490]:
+# In[40]:
 
 
 pd.DataFrame(confusion_matrix(y_test, predictions),
@@ -326,7 +332,7 @@ pd.DataFrame(confusion_matrix(y_test, predictions),
 
 # # 6. Neural Networks
 
-# In[495]:
+# In[41]:
 
 
 from sklearn.neural_network import MLPClassifier
@@ -340,14 +346,14 @@ clf = MLPClassifier(solver='lbfgs',
 clf.fit(X_train, y_train)   
 
 
-# In[496]:
+# In[42]:
 
 
 predictions = clf.predict(X_test)
 predictions
 
 
-# In[497]:
+# In[43]:
 
 
 print("Accuracy:", round(accuracy_score(y_test, predictions)*100, 2),"%")
@@ -355,7 +361,7 @@ print("Recall:", recall_score(y_test, predictions))
 print("Precision:", precision_score(y_test, predictions))
 
 
-# In[498]:
+# In[44]:
 
 
 pd.DataFrame(confusion_matrix(y_test, predictions),
@@ -366,7 +372,7 @@ pd.DataFrame(confusion_matrix(y_test, predictions),
 
 # # Model Export
 
-# In[500]:
+# In[45]:
 
 
 import joblib
