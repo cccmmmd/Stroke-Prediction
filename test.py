@@ -40,8 +40,7 @@ def stroke_predict(gender,age,hypertension,heart_disease,ever_married,work_type,
             df_f.loc[0, c] = 0
     
     # print(df_f)
-    df_f.drop(["ever_married_No","Residence_type_Rural"], axis=1, inplace=True)
-
+    df_f.drop(["gender_Female","work_type_Never_worked","work_type_children","ever_married_No","Residence_type_Rural","smoking_status_Unknown", "smoking_status_never smoked"], axis=1, inplace=True)
 
     predictions1 = lr_pretrained.predict(df_f)
     predictions2 = dt_pretrained.predict(df_f)
