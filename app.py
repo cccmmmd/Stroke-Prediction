@@ -80,9 +80,9 @@ def submit():
         for c in result:
            
             if(c == 1):
-                result_array.append('STROKE')
+                result_array.append('中風')
             else:
-                result_array.append('NO STROKE')
+                result_array.append('不會中風')
         
         return render_template('form.html',lr = result_array[0], dt=result_array[1],pt=result_array[2], rf=result_array[3],svm=result_array[4], clf=result_array[5])
  
