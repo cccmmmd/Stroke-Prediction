@@ -5,38 +5,55 @@
         <title></title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <link rel="stylesheet" href="">
+        <style>
+            body {
+                padding: 10px 30px;
+            }
+            section {
+                vertical-align: top;
+                width: 40%;
+            }
+            section div {
+                margin: 20px 0;
+            }
+            button {
+                width: 100px;
+                height: 50px;
+            }
+        </style>
     </head>
     <body style="background-color:aliceblue">
-        <div style="float: left;">
+        <h1>Classification 練習</h1>
+        <hr>
+        <section style="display: inline-block;">
             <h3>請輸入個人資料</h3>
-            <form action="/submit" method="post" enctype="multipart/form-data">
-                <p>
+            <form action="/" method="post" enctype="multipart/form-data">
+                <div>
                     <label for="gender">性別:</label>
                     <input type="radio" class="gender" name="gender" value="male" {{male}}><label for="male">男</label>
                     <input type="radio" class="gender" name="gender" value="female" {{female}}><label for="female">女</label>
                     <input type="radio" class="gender" name="gender" value="other" {{other}}><label for="other">其他</label>
-                </p>
-                <p>
+                </div>
+                <div>
                     <label for="age">Age:</label>
                     <input type="text" class="age" name="age" value="{{age}}">
-                </p>
-                <p>
+                </div>
+                <div>
                     <label for="hypertension">高血壓:</label>
                     <input type="radio" class="hypertension" name="hypertension" value="1" {{hypertension_y}}><label for="hypertension_y">有</label>
                     <input type="radio" class="hypertension" name="hypertension" value="0" {{hypertension_n}}><label for="hypertension_n">沒有</label>
-                </p>
-                <p>
+                </div>
+                <div>
                     <label for="heart_disease">心臟病:</label>
                     <input type="radio" class="heart_disease" name="heart_disease" value="1" {{heart_disease_y}}><label for="heart_disease_y">有</label>
                     <input type="radio" class="heart_disease" name="heart_disease" value="0" {{heart_disease_n}}><label for="heart_disease_n">沒有</label>
-                </p>
-                <p>    
+                </div>
+                <div>    
                     <label for="ever_married">婚姻狀態:</label>
                     <input type="radio" class="ever_married" name="ever_married" value="Yes" {{ever_married_y}}><label for="ever_married_y">有</label>
                     <input type="radio" class="ever_married" name="ever_married" value="No" {{ever_married_n}}><label for="ever_married_n">沒有</label>
-                </p>
-                <p>
+                </div>
+                <div>
                     <label for="work_type">工作型態:</label>
                     <select name="work_type" class="work_type">
                         <option value="">請選擇</option>
@@ -46,21 +63,21 @@
                         <option value="Govt_job" {{Govt_job}}>政府機關</option>
                         <option value="Never_worked" {{Never_worked}}>沒工作過</option>
                     </select>
-                </p>
-                <p>    
+                </div>
+                <div>    
                     <label for="Residence_type">居住類型:</label>
                     <input type="radio" class="Residence_type" name="Residence_type" value="Urban" {{Residence_type_u}}><label for="Residence_type_u">都市</label>
                     <input type="radio" class="Residence_type" name="Residence_type" value="Rural" {{Residence_type_r}}><label for="Residence_type_r">郊區</label>
-                </p>
-                <p>
+                </div>
+                <div>
                     <label for="avg_glucose_level">平均葡萄糖:</label>
                     <input type="text" class="avg_glucose_level" name="avg_glucose_level" value="{{avg_glucose_level}}">
-                </p>
-                <p>
+                </div>
+                <div>
                     <label for="bmi">BMI:</label>
                     <input type="text" class="bmi" name="bmi" value="{{bmi}}">
-                </p>
-                <p>
+                </div>
+                <div>
                 <label for="smoking_status">抽菸狀態:</label>
                 <select name="smoking_status" class="smoking_status">
                     <option value="">請選擇</option>
@@ -69,26 +86,27 @@
                     <option value="formerly smoked" {{formerly_smoked}}>之前吸過</option>
                     <option value="smokes" {{smokes}}>還有吸菸</option>
                 </select>
-                </p>
-                <input type="submit" value="submit">
+                </div>
+                <button type="submit">送出</button>
             </form>
-            <br/>
-            <div>
+        </section>
+        <section style="display: inline-block;">
                 <h3>各模型預測結果:</h3>
-                <p>Logistic Regression : {{lr}}</p> 
-                <p>Decision Tree Classifier : {{dt}}</p> 
-                <p>Averaged Perceptron : {{pt}}</p> 
-                <p>Random Forest Classification : {{rf}}</p> 
-                <p>Support Vector Machine : {{svm}}</p> 
-                <p>Neural Networks : {{clf}}</p> 
-            </div>
-        </div>
-        <div style="float: right;">
-            <h3>結婚與中風的關係</h3>
-            <div id="myGraph1" style="width:600px; height: 250px;"></div>
-            <h3>抽菸與中風的關係</h3>
-            <div id="myGraph2" style="width:600px; height: 250px;"></div>
-        </div>
+                <div>Logistic Regression : {{lr}}</div> 
+                <div>Decision Tree Classifier : {{dt}}</div> 
+                <div>Averaged Perceptron : {{pt}}</div> 
+                <div>Random Forest Classification : {{rf}}</div> 
+                <div>Support Vector Machine : {{svm}}</div> 
+                <div>Neural Networks : {{clf}}</div> 
+        </section>
+        <h1>資料集探索 - 資料視覺化</h1>
+        <hr>
+        <section>
+            <h3>結婚與中風的數量關係</h3>
+            <div id="myGraph1" style="width:600px; height: 350px;"></div>
+            <h3>抽菸與中風的數量關係</h3>
+            <div id="myGraph2" style="width:600px; height: 350px;"></div>
+        </section>
             <script src="https://cdn.plot.ly/plotly-2.24.1.min.js"></script>
         <script src="//unpkg.com/d3"></script>
         <script src="{{url_for('static', filename='main.js')}}"></script>

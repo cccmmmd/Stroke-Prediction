@@ -56,12 +56,9 @@ def model_predict(gender,age, hypertension,heart_disease, ever_married, work_typ
 from flask import Flask, request, render_template
 app = Flask(__name__)
 
-@app.route("/")
-def formPage():
-    return render_template('form.html')
- 
-@app.route("/submit", methods=['POST'])
+@app.route("/", methods=['GET', 'POST'])
 def submit():
+    result_array = []
     # gender,age,hypertension,heart_disease,ever_married,work_type,Residence_type,avg_glucose_level,bmi,smoking_status
     if request.method == 'POST':
         form_data = request.form
@@ -76,15 +73,16 @@ def submit():
                       form_data['bmi'],
                       form_data['smoking_status'],
                       )
-        result_array = []
+        
         for c in result:
            
             if(c == 1):
                 result_array.append('中風')
             else:
                 result_array.append('不會中風')
-        
         return render_template('form.html',lr = result_array[0], dt=result_array[1],pt=result_array[2], rf=result_array[3],svm=result_array[4], clf=result_array[5])
+    else:
+        return render_template('form.html')
  
 if __name__ == "__main__":
     app.run()
