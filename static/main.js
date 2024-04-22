@@ -12,7 +12,7 @@ function drawMarried(res) {
     let myGraph = document.getElementById('myGraph1');
     let trace1 ={};
     trace1.type ="bar";
-    trace1.name ="stroke";
+    trace1.name ="中風";
     trace1.x =[];
     trace1.y =[];
 
@@ -38,21 +38,21 @@ function drawMarried(res) {
     })
     stroke = [
         {
-            "name": "married",
+            "name": "已婚",
             "count": count_y_s
         },
         {
-            "name": "No married",
+            "name": "未婚",
             "count": count_n_s
         },
     ]
     no_stroke = [
         {
-            "name": "married",
+            "name": "已婚",
             "count": count_y_n
         },
         {
-            "name": "No married",
+            "name": "未婚",
             "count": count_n_n
         },
     ]
@@ -63,7 +63,7 @@ function drawMarried(res) {
 
     let trace2 ={};
     trace2.type ="bar";
-    trace2.name ="no stroke";
+    trace2.name ="沒中風";
     trace2.x =[];
     trace2.y =[];
     for(let i=0; i<no_stroke.length; i++) {
@@ -88,7 +88,7 @@ function drawSmoke(res) {
     let myGraph = document.getElementById('myGraph2');
     let trace1 ={};
     trace1.type ="bar";
-    trace1.name ="stroke";
+    trace1.name ="中風";
     trace1.x =[];
     trace1.y =[];
 
@@ -135,37 +135,37 @@ function drawSmoke(res) {
     })
     stroke = [
         {
-            "name": "never smoked",
+            "name": "從沒抽過菸",
             "count": count_n_s
         },
         {
-            "name": "Unknown",
+            "name": "未知",
             "count": count_u_s
         },
         {
-            "name": "formerly smoked",
+            "name": "之前抽過菸",
             "count": count_f_s
         },
         {
-            "name": "smokes              ",
+            "name": "還有抽煙",
             "count": count_s_s
         },
     ]
     no_stroke = [
         {
-            "name": "never smoked",
+            "name": "從沒抽過菸",
             "count": count_n_n
         },
         {
-            "name": "Unknown",
+            "name": "未知",
             "count": count_u_n
         },
         {
-            "name": "formerly smoked",
+            "name": "之前抽過菸",
             "count": count_f_n
         },
         {
-            "name": "smokes              ",
+            "name": "還有抽煙",
             "count": count_s_n
         },
     ]
@@ -176,7 +176,7 @@ function drawSmoke(res) {
 
     let trace2 ={};
     trace2.type ="bar";
-    trace2.name ="no stroke";
+    trace2.name ="沒中風";
     trace2.x =[];
     trace2.y =[];
     for(let i=0; i<no_stroke.length; i++) {
